@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>MicroKou&#39;s blog</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://microkou.club/"/>
+  <updated>2018-12-04T08:57:51.763Z</updated>
+  <id>https://microkou.club/</id>
+  
+  <author>
+    <name>MicroKou</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Pixel Launcher后台卡片圆角修改</title>
+    <link href="https://microkou.club/2018/12/04/Launcher%E5%90%8E%E5%8F%B0%E5%8D%A1%E7%89%87%E5%9C%86%E8%A7%92/"/>
+    <id>https://microkou.club/2018/12/04/Launcher后台卡片圆角/</id>
+    <published>2018-12-04T07:36:30.000Z</published>
+    <updated>2018-12-04T08:57:51.763Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="修改目的"><a href="#修改目的" class="headerlink" title="修改目的"></a>修改目的</h1><p>在Google发布了Android Pie之后，UI中加入了许多圆角设计，以及现在的手机屏幕大多数使用“全面屏”和屏幕圆角设计，使得整体较为和谐。但是其中出现了一个叛徒，那就是桌面后台卡片。对，它是没有圆角的。</p><h2 id="修改前"><a href="#修改前" class="headerlink" title="修改前"></a>修改前</h2><img src="/2018/12/04/Launcher后台卡片圆角/1.png"><h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><blockquote><ul><li>获取Root权限(推荐Magisk)</li><li>安装MT管理器</li></ul></blockquote><h1 id="修改过程"><a href="#修改过程" class="headerlink" title="修改过程"></a>修改过程</h1><figure class="highlight plain"><figcaption><span>前往路径</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/system/priv-app/NexusLauncherPrebilt</span><br></pre></td></tr></table></figure><h2 id="图片教程"><a href="#图片教程" class="headerlink" title="图片教程"></a>图片教程</h2><img src="/2018/12/04/Launcher后台卡片圆角/3.png"><ul><li>输入自己想要的圆角数值，推荐10dp</li></ul><img src="/2018/12/04/Launcher后台卡片圆角/4.png"><h1 id="保存重启"><a href="#保存重启" class="headerlink" title="保存重启"></a>保存重启</h1><p>修改过后的效果<br><img src="/2018/12/04/Launcher后台卡片圆角/2.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;修改目的&quot;&gt;&lt;a href=&quot;#修改目的&quot; class=&quot;headerlink&quot; title=&quot;修改目的&quot;&gt;&lt;/a&gt;修改目的&lt;/h1&gt;&lt;p&gt;在Google发布了Android Pie之后，UI中加入了许多圆角设计，以及现在的手机屏幕大多数使用“全面屏”和屏幕圆角设
+      
+    
+    </summary>
+    
+      <category term="Android美化" scheme="https://microkou.club/categories/Android%E7%BE%8E%E5%8C%96/"/>
+    
+    
+      <category term="Android" scheme="https://microkou.club/tags/Android/"/>
+    
+      <category term="Pixel Launcher" scheme="https://microkou.club/tags/Pixel-Launcher/"/>
+    
+      <category term="圆角" scheme="https://microkou.club/tags/%E5%9C%86%E8%A7%92/"/>
+    
+      <category term="美化" scheme="https://microkou.club/tags/%E7%BE%8E%E5%8C%96/"/>
+    
+  </entry>
+  
+</feed>
