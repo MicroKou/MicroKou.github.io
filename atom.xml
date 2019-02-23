@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://microkou.com/"/>
-  <updated>2018-12-04T08:57:51.763Z</updated>
+  <updated>2019-02-23T12:14:34.347Z</updated>
   <id>https://microkou.com/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>小米笔记本Pro安装Mojave过程</title>
+    <link href="https://microkou.com/2019/02/19/Mojave%E8%BF%87%E7%A8%8B/"/>
+    <id>https://microkou.com/2019/02/19/Mojave过程/</id>
+    <published>2019-02-19T07:20:48.000Z</published>
+    <updated>2019-02-23T12:14:34.347Z</updated>
+    
+    <content type="html"><![CDATA[<p>!!!由于图床还没弄好，所以并没有上传图片（后续补上）!!!</p><h1 id="安装前必读-amp-注意事项"><a href="#安装前必读-amp-注意事项" class="headerlink" title="安装前必读&amp;注意事项"></a>安装前必读&amp;注意事项</h1><blockquote><ul><li>备份好Windows下的重要数据，以免不慎操作导致数据丢失！</li><li>请认真阅读本篇文章所以步骤操作。</li><li>小米笔记本Pro下的macOS并不是完美驱动所有硬件，是否安装取决于你自己！</li></ul></blockquote><h2 id="哪些硬件不能工作？以及解决办法"><a href="#哪些硬件不能工作？以及解决办法" class="headerlink" title="哪些硬件不能工作？以及解决办法"></a>哪些硬件不能工作？以及解决办法</h2><blockquote><ul><li>独立显卡不可驱动因为macOS不支持Optimus显卡切换技术。</li><li>Intel无线网卡无法驱动无线网卡型号是 Intel® Dual Band Wireless-AC 8265。很不幸，没有驱动支持它(可以使用USB无线网卡或者或者m.2的无线网卡，需要占用一个m.2的插槽)。</li><li>原生蓝牙不完美,型号是Intel® Dual Band Wireless-AC 8265。有两种方式可以让你的体验更好：(1)禁用原生蓝牙来省电或者使用USB蓝牙代替原生蓝牙。(2)购买一个兼容的内置网卡并插在M.2插槽。如果你不使用上诉方法使用蓝牙，那么蓝牙需要在Windows下连接一遍再重启进macOS连接才能使用（有些蓝牙终端不支持）。</li><li>使用左侧的HDMI接口可能会导致笔记本内屏黑屏，可以尝试合盖再开盖来恢复。</li><li>SD卡槽无法驱动SD读卡器型号是RTS5129。因为它不被支持，所以禁用了它来增加续航。</li></ul></blockquote><h1 id="安装前准备工作"><a href="#安装前准备工作" class="headerlink" title="安装前准备工作"></a>安装前准备工作</h1><blockquote><ul><li>检查你的SSD型号是否为PM981，PM981硬盘序列号1以MZVLB开头，PM961硬盘序列号以MZVLW开头，如果是PM981则支持不好，建议更换其他SSD进行安装。</li><li>准备一个大于8G的U盘，（建议USB3.0）</li><li>Etcher软件（使用此软件制作U盘安装盘）</li><li>Diskgenius（Windows下分区操作工具）</li><li>Bootice（Windows下引导管理工具）</li><li>下载系统镜像（请记得校验镜像的MD5值，以免安装时出现错误）</li></ul></blockquote><h1 id="步骤1：扩大ESP分区-amp-分配磁盘空间"><a href="#步骤1：扩大ESP分区-amp-分配磁盘空间" class="headerlink" title="步骤1：扩大ESP分区&amp;分配磁盘空间"></a>步骤1：扩大ESP分区&amp;分配磁盘空间</h1><p>扩大目的：macOS安装时如果ESP分区小于200M会出现无法抹盘现象，也就是无法格式化成macOS所需要的文件格式。<br>Tips：如果是双硬盘安装，一个Windows，一个macOS，则安装macOS的盘也需要ESP分区并大于200M。</p><h2 id="扩大ESP分区"><a href="#扩大ESP分区" class="headerlink" title="扩大ESP分区"></a>扩大ESP分区</h2><blockquote><ul><li>打开diskgenius</li><li>选中MSR分区将其删除</li><li>将MSR分区与ESP分区合并</li><li>此时ESP分区刚好大于200M</li><li>如果合并不了需要将ESP分区删除再合并（记住需要将原来ESP分区里的Windows引导备份出来）</li><li>将原有的win引导复制回ESP分区</li></ul></blockquote><h2 id="分配磁盘空间"><a href="#分配磁盘空间" class="headerlink" title="分配磁盘空间"></a>分配磁盘空间</h2><blockquote><ul><li>用Windows自带的磁盘管理工具压缩出一块空间给macOS使用（建议大于20G）</li><li>使用diskgenius分出一块多余空间给macOS使用</li></ul></blockquote><h2 id="访问ESP分区的方法"><a href="#访问ESP分区的方法" class="headerlink" title="访问ESP分区的方法"></a>访问ESP分区的方法</h2><blockquote><ul><li>使用命令进行挂载<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">C:\ &gt;diskpart</span><br><span class="line">list disk  #磁盘列表</span><br><span class="line">select disk X  #选择EFI所在磁盘，X为磁盘号</span><br><span class="line">list partition  #选择分区列表</span><br><span class="line">select partition X  #选择EFI分区，X为分区号</span><br><span class="line">set id="ebd0a0a2-b9e5-4433-87c0-68b6b72699c7"  #设置为基本数据分区</span><br><span class="line">assign letter y  #y为EFI分区盘符</span><br><span class="line">exit  #退出diskpart</span><br><span class="line">notepad  #打开记事本</span><br></pre></td></tr></table></figure></li></ul></blockquote><p>通过notepad来打开文件选择ESP分区来进行ESP分区的读写操作（貌似是bug）</p><blockquote><ul><li>使用bBootic或者Diskgenius挂载ESP分区</li><li>挂载完成后同样使用notpad打开ESP分区进行读写操作。</li><li>将efi文件复制到esp分区（Windows引导也要复制回去）</li><li>使用Bootice添加Clover引导并设置为第一启动项</li></ul></blockquote><h1 id="步骤2：关闭股安全启动"><a href="#步骤2：关闭股安全启动" class="headerlink" title="步骤2：关闭股安全启动"></a>步骤2：关闭股安全启动</h1><blockquote><ul><li>开机按F2进入BIOS设置,光标移动到Security</li><li>点击Set Supervisor Password设置一个BIOS密码,输入两次相同的密码,点击YES保存 Supervisor Password由Not Installed变为Installed</li><li>点击Secure Boot Mode,设置为Disabled关闭安全启动</li></ul></blockquote><h1 id="步骤3：插入U盘进行安装"><a href="#步骤3：插入U盘进行安装" class="headerlink" title="步骤3：插入U盘进行安装"></a>步骤3：插入U盘进行安装</h1><blockquote><ul><li>开机之后进入引导界面</li><li>选择boot macOS InStall form Install macOS Mojave</li><li>等待几分钟之后进入语言选择界面</li><li>出现安装向导、许可协议、点击继续</li><li>出现安装界面</li><li>点击菜单上的实用工具-&gt;磁盘工具</li><li>选择之前分出来磁盘进行抹盘操作（格式：Mac OS扩展（日志式）方案：GUID分区图）</li><li>退出磁盘工具，选择刚才抹盘的盘进行安装</li><li>重启后继续安装，通常会自动重启2-3遍</li><li>重启之后进入设置向导界面，完成之后进入系统！</li></ul></blockquote><h2 id="小记-amp-资源"><a href="#小记-amp-资源" class="headerlink" title="小记&amp;资源"></a>小记&amp;资源</h2><blockquote><ul><li>本博客完全是自己安装时的一些记录，为了那些想安装却完全没有头绪的朋友，避免少走一些弯路！由于时间问题，后续还会更新图片以及额外的内容！谢谢你的阅读！</li><li>工具&amp;EFI：<br>OneDrive：<a href="https://ncisteducn-my.sharepoint.com/:u:/g/personal/201704024108dy_ncist_edu_cn/ERBkOpolEmZOsjl8ZRek6TAB2vUQ7OEGwx7EJM8_vV82PQ?e=GI3tlN" target="_blank" rel="noopener">https://ncisteducn-my.sharepoint.com/:u:/g/personal/201704024108dy_ncist_edu_cn/ERBkOpolEmZOsjl8ZRek6TAB2vUQ7OEGwx7EJM8_vV82PQ?e=GI3tlN</a><br>百度云：<a href="https://pan.baidu.com/s/1v0IwdKic5Z2jSM4XJjgixA" target="_blank" rel="noopener">https://pan.baidu.com/s/1v0IwdKic5Z2jSM4XJjgixA</a> 密码:fkx1<br>黑果小兵小米笔记本Pro EFI GitHub —&gt;<a href="https://github.com/daliansky/XiaoMi-Pro" target="_blank" rel="noopener">https://github.com/daliansky/XiaoMi-Pro</a></li></ul></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;!!!由于图床还没弄好，所以并没有上传图片（后续补上）!!!&lt;/p&gt;
+&lt;h1 id=&quot;安装前必读-amp-注意事项&quot;&gt;&lt;a href=&quot;#安装前必读-amp-注意事项&quot; class=&quot;headerlink&quot; title=&quot;安装前必读&amp;amp;注意事项&quot;&gt;&lt;/a&gt;安装前必读&amp;
+      
+    
+    </summary>
+    
+      <category term="Hackintosh" scheme="https://microkou.com/categories/Hackintosh/"/>
+    
+    
+      <category term="小米笔记本" scheme="https://microkou.com/tags/%E5%B0%8F%E7%B1%B3%E7%AC%94%E8%AE%B0%E6%9C%AC/"/>
+    
+      <category term="Mojave" scheme="https://microkou.com/tags/Mojave/"/>
+    
+      <category term="Hackintosh" scheme="https://microkou.com/tags/Hackintosh/"/>
+    
+  </entry>
   
   <entry>
     <title>Pixel Launcher后台卡片圆角修改</title>
